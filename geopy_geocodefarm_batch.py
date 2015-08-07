@@ -17,28 +17,27 @@ gc = GeocodeFarm(api_key,"%s, NSW, Australia",1)#,proxies={"http": "http://usern
 outstring = ""
 
 for addressfile in sys.argv[1:]:
-    with open(addressfile, "r") as f:
-        reader = csv.reader(f)
-        with open(addressfile[:-4]+"_output.csv", "w") as output:
-            for row in reader:
-                address = ",".join(row)
-                print (address)
-                outstring = outstring + address
+    with open(addressfile, "r") as inputfile:
+#        reader = csv.reader(f)
+        with open(addressfile[:-4]+"_output.csv", "w") as outputfile:
+            for address in inputfile:
+                #address = ",".join(row)
+                outstring = address.rstrip()
                 try:
                     place, (lat, lng) = gc.geocode(address)
                     outstring = outstring + "\t" + str(lat) + "\t" + str(lng) + "\n"
-                    output.write(outstring)
-                    print (place,lat,lng)
+                    outputfile.write(outstring)
                 except:
                     outstring = outstring + "\t" + "address couldn't be geolocated" + "\n"
-                    output.write(outstring)
-                    print ("address couldn't be geolocaed")
+                    outputfile.write(outstring)
+                    print ("address couldn't be geolocated")
 
+                time.sleep(2.2)
                 #set outstring to empty
                 outstring = ""
-                time.sleep(1/6.94) # rate limit
-        output.close()
-        f.close()
+
+        outputfile.close()
+        inputfile.close()
 
 print (" ")
 print (" ")

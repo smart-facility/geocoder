@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+
+# Addresses with ranges, like 202-207 Princes Hwy, are unsupported. 
+# Keep only the first number in the range when preparing input.
+
 import csv, time, sys
 from geopy.geocoders import GeocodeFarm
 #from getpass import getpass

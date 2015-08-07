@@ -18,10 +18,8 @@ outstring = ""
 
 for addressfile in sys.argv[1:]:
     with open(addressfile, "r") as inputfile:
-#        reader = csv.reader(f)
         with open(addressfile[:-4]+"_output.csv", "w") as outputfile:
             for address in inputfile:
-                #address = ",".join(row)
                 outstring = address.rstrip()
                 try:
                     place, (lat, lng) = gc.geocode(address)

@@ -1,22 +1,22 @@
 #!/usr/bin/env python
 
-# Addresses with ranges, like 202-207 Princes Hwy, are unsupported. 
+# Addresses with ranges, like 202-207 Princes Hwy, are unsupported.
 # Keep only the first number in the range when preparing input.
 
-import csv, time, sys
+import csv, time, sys, os
 from geopy.geocoders import GeocodeFarm
 #from getpass import getpass
 
 #user = input("Enter uow proxy usename: ")
 #pw = getpass('Enter uow proxy password: ')
-api_key = sys.argv[1]
+api_key = os.environ['GEOCODEFARM_API_KEY']
 
 #intialize geocoder to geocode addresses in only NSW, Australia (addresses will be interpolated to add NSW, Australia)
 gc = GeocodeFarm(api_key,"%s, NSW, Australia",1)#,proxies={"http": "http://username:password@proxy.domain:8080"})
 
 outstring = ""
 
-for addressfile in sys.argv[2:]:
+for addressfile in sys.argv[1:]:
     with open(addressfile, "r") as f:
         reader = csv.reader(f)
         with open(addressfile[:-4]+"_output.csv", "w") as output:

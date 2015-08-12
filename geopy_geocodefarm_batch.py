@@ -22,8 +22,8 @@ for addressfile in sys.argv[1:]:
             for address in inputfile:
                 outstring = address.rstrip()
                 try:
-                    place, (lat, lng) = gc.geocode(address)
-                    outstring = outstring + "\t" + str(lat) + "\t" + str(lng) + "\n"
+                    location = gc.geocode(address)            
+                    outstring = outstring + "\t" + str(location.latitude) + "\t" + str(location.longitude) + "\t" + location.raw["accuracy"] + "\n"
                     outputfile.write(outstring)
                 except:
                     outstring = outstring + "\t" + "address couldn't be geolocated" + "\n"

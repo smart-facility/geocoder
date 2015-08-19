@@ -12,7 +12,7 @@ from geopy.geocoders import GeocodeFarm
 api_key = os.environ['GEOCODEFARM_API_KEY']
 
 #intialize geocoder to geocode addresses in only NSW, Australia (addresses will be interpolated to add NSW, Australia)
-gc = GeocodeFarm(api_key,"%s, NSW, Australia",1)#,proxies={"http": "http://username:password@proxy.domain:8080"})
+gc = GeocodeFarm(api_key,"%s, Australia",1)#,proxies={"http": "http://username:password@proxy.domain:8080"})
 
 outstring = ""
 

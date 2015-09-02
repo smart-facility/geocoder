@@ -32,7 +32,7 @@ for addressfile in sys.argv[1:]:
                     outputfile.write(outstring)
                     print ("address couldn't be geolocated")
                 print datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
-                time.sleep(0.3)
+                time.sleep(0.6)
                 print datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
                 #set outstring to empty
                 outstring = ""

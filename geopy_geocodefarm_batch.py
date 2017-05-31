@@ -26,18 +26,19 @@ for addressfile in sys.argv[1:]:
         with open(addressfile[:-4]+"_output.csv", "w") as outputfile:
             for address in inputfile:
                 outstring = address.rstrip()
-                print datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
+                print(datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3])
                 try:
                     location = gc.geocode(address+", NSW, Australia")
-                    outstring = outstring + "\t" + str(location.latitude) + "\t" + str(location.longitude) + "\t" + location.raw["accuracy"] + "\n"
+                    outstring = outstring + "\t" + str(location.latitude) + "\t" + str(location.longitude) + "\n"
                     outputfile.write(outstring)
                 except:
+                    print()
                     outstring = outstring + "\t" + "address couldn't be geolocated" + "\n"
                     outputfile.write(outstring)
                     print ("address couldn't be geolocated")
-                print datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
+                print(datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3])
                 #time.sleep(0.6)
-                print datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
+                print(datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3])
                 #set outstring to empty
                 outstring = ""
 

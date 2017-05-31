@@ -58,3 +58,6 @@ target/
 
 # Sample output
 *_output.csv
+
+# .env file with API key
+.env

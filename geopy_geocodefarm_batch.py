@@ -4,16 +4,20 @@
 # Keep only the first number in the range when preparing input.
 
 import csv, time, sys, os
-from geopy.geocoders import GeocodeFarm
+from geopy.geocoders import GoogleV3
 #from getpass import getpass
 from datetime import datetime
 
-#user = input("Enter uow proxy usename: ")
-#pw = getpass('Enter uow proxy password: ')
-api_key = os.environ['GEOCODEFARM_API_KEY']
+from os.path import join, dirname
+from dotenv import load_dotenv
+
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
+api_key = os.environ['GOOGLE_API_KEY']
 
 #intialize geocoder to geocode addresses in only NSW, Australia (addresses will be interpolated to add NSW, Australia)
-gc = GeocodeFarm(api_key,"%s, NSW, Australia",1)#,proxies={"http": "http://username:password@proxy.domain:8080"})
+gc = GoogleV3(api_key)#,proxies={"http": "http://username:password@proxy.domain:8080"})
 
 outstring = ""
 
@@ -24,7 +28,7 @@ for addressfile in sys.argv[1:]:
                 outstring = address.rstrip()
                 print datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
                 try:
-                    location = gc.geocode(address)
+                    location = gc.geocode(address+", NSW, Australia")
                     outstring = outstring + "\t" + str(location.latitude) + "\t" + str(location.longitude) + "\t" + location.raw["accuracy"] + "\n"
                     outputfile.write(outstring)
                 except:
@@ -32,7 +36,7 @@ for addressfile in sys.argv[1:]:
                     outputfile.write(outstring)
                     print ("address couldn't be geolocated")
                 print datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
-                time.sleep(0.6)
+                #time.sleep(0.6)
                 print datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
                 #set outstring to empty
                 outstring = ""
